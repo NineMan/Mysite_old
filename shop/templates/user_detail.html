@@ -1,0 +1,44 @@
+<!-- templates/user_detail.html -->
+
+{% block head %}
+{% endblock %}
+
+{% block content %}
+	{% block page %}
+		<div>
+			<p>Это страничка пользователя по имени 
+				<b>  {{ user_page.name }} </b>
+			</p>
+		</div>	
+
+		<form action="/shop/accounts/" method="get">
+<!--		<form action="/shop/account/"> -->
+			{% for x in accounts %}
+				<div>
+					<ul>
+						<li>
+							<h3>
+							<input type="checkbox" name= "acc" value="{{x.pk}}">
+								<a href=" {% url 'account_page' pk=x.pk %} ">
+									Номер счета: {{ x.number }} ; 
+									Сумма на счету =  {{ x.value }} руб.
+								</a>
+							</h3>
+						</li>
+					</ul>
+				</div>	
+			{% endfor %}
+			<p><input type="submit" value="Показать выбранные счета"></p>
+		</form>
+
+	{% endblock %}
+
+	{% block additional %}
+	{% endblock %}
+
+	{% block sidebar %}
+	{% endblock %}
+{% endblock %}
+
+{% block footer %}
+{% endblock %}

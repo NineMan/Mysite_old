@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+
+{% load static %}
+<html>
+	<head>
+		<title>
+			Mike Nel shop		
+		</title>
+
+		<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+		<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
+		<link href="https://fonts.googleapis.com/css?family=Lobster&subset=latin,cyrillic" rel="stylesheet" type="text/css">
+		<link rel="stylesheet" href="{% static 'css/shop.css' %}">
+
+	{% block head %}
+	{% endblock %}
+	</head>
+
+	<body>
+		{% block content %}
+			{% block page %}
+			{% endblock %}
+
+			{% block additional %}
+			{% endblock %}
+
+			{% block sidebar %}
+			{% endblock %}
+		{% endblock %}
+
+		{% block footer %}
+		{% endblock %}
+	</body>
+</html>

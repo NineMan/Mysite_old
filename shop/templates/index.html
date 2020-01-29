@@ -1,0 +1,50 @@
+<!-- templates/index.html -->
+{% extends 'base.html' %}
+
+{% block head %}
+{% endblock %}
+
+{% block content %}
+	{% block page %}
+
+		{% for user in list_users %}
+			<div>
+				<h1><a href=" {% url 'user_page' pk=user.pk %} ">{{ user.id }}. {{ user.name }} {{ user.second_name }} </a></h1>
+			</div>
+		{% endfor %}
+
+
+<!--
+	<body>
+		<table border="1" align="left" width="20%">
+		<caption><h3>Список пользователей</h3></caption>
+		<tr>
+			<th> <h4>№</h4></th>
+			<th> <h4>Имя</h4></th>
+			<th> <h4>Фамилия</h4></th>
+		</tr>
+
+		{% for user in list_users %}
+			<tr>
+				<td align="center"><h4><a href=" {% url 'user_page' pk=user.pk %} ">{{ user.id }}			</a></h4></td>
+				<td align="center"><h4><a href=" {% url 'user_page' pk=user.pk %} ">{{ user.name }}			</a></h4></td>
+				<td align="center"><h4><a href=" {% url 'user_page' pk=user.pk %} ">{{ user.second_name }}	</a></h4></td>
+			</tr>
+		{% endfor %}
+
+		</table>
+	</body>
+-->
+
+
+	{% endblock %}
+
+	{% block additional %}
+	{% endblock %}
+
+	{% block sidebar %}
+	{% endblock %}
+{% endblock %}
+
+{% block footer %}
+{% endblock %}

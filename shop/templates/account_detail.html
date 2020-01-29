@@ -1,0 +1,47 @@
+<!-- templates/account_detail.html -->
+{% extends 'base.html' %}
+
+{% block head %}
+{% endblock %}
+
+{% block content %}
+	{% block page %}
+
+			<div>
+				<p>Это страница пользователя по имени 
+					<b>  {{ user.name }} </b>
+				</p>
+			</div>	
+
+		<p>Для списания выбраны следующие счета:</p>
+		{% for x in accounts %}
+			<ul>
+				<li>
+					<p>Счёт № <b>{{ x.number }}</b>. На нем лежит <b>{{ x.value }}</b> рублей</p>
+				</li>
+			</ul>
+		{% endfor %}
+
+		<p>
+			Всего на выбранных счётах пользователя
+				<b>{{ user.name }} </b>
+			находится 
+				<b>{{ total_value }} </b> 
+			рублей
+		</p>
+
+		<br>
+		<p>Выберите пользователя которому нужно отправить средства:</p>
+		<a href="/shop/search/">Поиск пользователя >></a>		
+
+	{% endblock %}
+
+	{% block additional %}
+	{% endblock %}
+
+	{% block sidebar %}
+	{% endblock %}
+{% endblock %}
+
+{% block footer %}
+{% endblock %}
