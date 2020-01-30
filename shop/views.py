@@ -10,8 +10,8 @@ from .models import User, Account
 
 
 def index(request):
-	users = User.objects.all().order_by('id')
-	limit = 4
+	users = User.objects.all().order_by('name')
+	limit = 20
 
 	page = request.GET.get('page', 1)
 	paginator = Paginator(users, limit)
@@ -29,30 +29,44 @@ def index(request):
 		})
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 def user_page(request, pk):
-	user_page = get_object_or_404(User, pk=pk)
-	accounts = Account.objects.all().filter(user_account=user_page)
+	not_found = ''
+	user = get_object_or_404(User, pk=pk)
+	users_accounts = Account.objects.all().filter(user_account=user)
+
+
+	query = request.GET.get('q')
+	list_found_users = User.objects.all().order_by('name')		# Не правильно фильтрует. Нужно перенести в models
+	list_found_users = User.objects.filter(name=query)
+
+	if query and not list_found_users:
+		not_found = 'Такого пользователя не существует. Уточните поиск.'
+
+	list_accounts = []
+
+	for users in list_found_users:
+		list_accounts.append(users.account_set.all())
+
+	print(list_accounts[0][0], list_accounts[0][1])
+	print(list_accounts[1])
 
 	return render(request, 'user_detail.html', { 
-		'user_page' : user_page, 
-		'accounts' : accounts 
+		'user' : user, 
+		'users_accounts' : users_accounts,
+
+		'list_found_users' : list_found_users,
+		'not_found' : not_found
 		})
+
+
+
+
+
+
+
+
+
+
 
 
 def accounts_page(request):
@@ -103,15 +117,16 @@ def account_page(request, pk):
 #----------------------------------
 
 def search_page(request):
-#	account = get_object_or_404(Account, pk=pk)
-	list_users = User.objects.all().order_by('name')
-
+	not_found = ''
 	query = request.GET.get('q')
-#	if query:
+	list_users = User.objects.all().order_by('name')
 	list_users = User.objects.filter(name=query)
+
 	if query and not list_users:
-		return render(request, 'search_not_found.html')
+		not_found = 'Такого пользователя не существует. Уточните поиск.'
 
-
-	return render(request, 'search_page.html', {'list_users' : list_users})
+	return render(request, 'search_page.html', {
+		'list_users' : list_users,
+		'not_found' : not_found
+		})
 

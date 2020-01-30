@@ -1,35 +1,70 @@
 <!-- templates/user_detail.html -->
+{% extends 'base.html' %}
 
 {% block head %}
 {% endblock %}
 
 {% block content %}
 	{% block page %}
+
 		<div>
-			<p>Это страничка пользователя по имени 
-				<b>  {{ user_page.name }} </b>
-			</p>
+			<p><h4>Это страничка пользователя  
+				<b>  {{ user.name }} </b>
+			</p></h4>
 		</div>	
 
 		<form action="/shop/accounts/" method="get">
 <!--		<form action="/shop/account/"> -->
-			{% for x in accounts %}
+			{% for x in users_accounts %}
 				<div>
 					<ul>
 						<li>
-							<h3>
+							<h4>
 							<input type="checkbox" name= "acc" value="{{x.pk}}">
 								<a href=" {% url 'account_page' pk=x.pk %} ">
 									Номер счета: {{ x.number }} ; 
 									Сумма на счету =  {{ x.value }} руб.
 								</a>
-							</h3>
+							</h4>
 						</li>
 					</ul>
 				</div>	
 			{% endfor %}
-			<p><input type="submit" value="Показать выбранные счета"></p>
+			<p><input type="submit" value="Выбрать счета"></p>
 		</form>
+
+
+
+
+		<br><h4>
+			Выберите пользователя которому перевести деньги.
+		</h4>
+		<p>
+			Введите имя пользователя:
+		</p>
+		<form action="{% url 'user_page' pk=user.pk %}" method="get">
+			<input name="q" type="text" placeholder="Искать пользователя...">
+		</form>
+
+<!--		<a href="/shop/search">Сбросить поиск >></a><br>	-->
+		<h4>
+			Результат поиска:
+		</h4>
+		<p>{{ not_found }}</p>
+		<ul>
+		  {% for user in list_found_users %}
+		    <li>
+				<form>
+				<a href=" {% url 'user_page' pk=user.pk %} ">
+					{{ user.name }} {{ user.second_name }}
+				</a>
+					<input type="submit" value="Выбрать">
+				</form>
+		    </li>
+		  {% endfor %}
+		</ul>
+
+
 
 	{% endblock %}
 
