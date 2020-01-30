@@ -1,13 +1,48 @@
+from django.core.paginator import Paginator, EmptyPage
+
 from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponse, HttpResponseNotFound
 from .models import User, Account
 
 
 
-def index(request):
-	list_users = User.objects.all().order_by('id')
 
-	return render(request, 'index.html', {'list_users' : list_users})
+
+
+def index(request):
+	users = User.objects.all().order_by('id')
+	limit = 4
+
+	page = request.GET.get('page', 1)
+	paginator = Paginator(users, limit)
+	paginator.baseurl = '/shop/?page='	#
+
+	try:
+		page = paginator.page(page)					# Page
+	except EmptyPage:						# Exception as e:
+		page = paginator.page(paginator.num_pages)
+
+	return render(request, 'index.html', {
+		'list_users' : page.object_list,
+		'paginator' : paginator,
+		'page' : page,
+		})
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 def user_page(request, pk):
