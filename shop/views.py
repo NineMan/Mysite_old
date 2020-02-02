@@ -47,8 +47,8 @@ def user_page(request, pk):
 	for users in list_found_users:
 		list_accounts.append(users.account_set.all())
 
-	print(list_accounts[0][0], list_accounts[0][1])
-	print(list_accounts[1])
+#	print(list_accounts[0][0], list_accounts[0][1])
+#	print(list_accounts[1])
 
 	return render(request, 'user_detail.html', { 
 		'user' : user, 

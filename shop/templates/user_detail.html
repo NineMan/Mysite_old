@@ -7,14 +7,16 @@
 {% block content %}
 	{% block page %}
 
-		<div>
-			<p><h4>Это страничка пользователя  
-				<b>  {{ user.name }} </b>
-			</p></h4>
+		<div class="heading" align="center">
+			<p><h3>Это страничка пользователя  
+					<b>  {{ user.name }} </b>
+					<br><br>
+			</p></h3>
 		</div>	
 
+<!--	Счета в чекбоксе
+
 		<form action="/shop/accounts/" method="get">
-<!--		<form action="/shop/account/"> -->
 			{% for x in users_accounts %}
 				<div>
 					<ul>
@@ -31,40 +33,82 @@
 				</div>	
 			{% endfor %}
 			<p><input type="submit" value="Выбрать счета"></p>
-		</form>
+		</form>	-->
 
+		<div class="accounts">
 
-
-
-		<br><h4>
-			Выберите пользователя которому перевести деньги.
-		</h4>
-		<p>
-			Введите имя пользователя:
-		</p>
-		<form action="{% url 'user_page' pk=user.pk %}" method="get">
-			<input name="q" type="text" placeholder="Искать пользователя...">
-		</form>
-
-<!--		<a href="/shop/search">Сбросить поиск >></a><br>	-->
-		<h4>
-			Результат поиска:
-		</h4>
-		<p>{{ not_found }}</p>
-		<ul>
-		  {% for user in list_found_users %}
-		    <li>
-				<form>
-				<a href=" {% url 'user_page' pk=user.pk %} ">
-					{{ user.name }} {{ user.second_name }}
-				</a>
-					<input type="submit" value="Выбрать">
+			<div class="list_of_accounts">
+				<p><h4>Счета:
+				</p></h4>
+				<form action="/shop/accounts/" method="get">
+					{% for x in users_accounts %}
+						<ul>
+							<li>
+								<h5>
+										Номер счета: {{ x.number }} ; 
+										Сумма на счету =  {{ x.value }} руб.
+									</a>
+								</h5>
+							</li>
+						</ul>
+					{% endfor %}
 				</form>
-		    </li>
-		  {% endfor %}
-		</ul>
+				<br>
+			</div>
+
+			<div class="account_selection">
+
+				<p><h4>Выберите счета для списания: 
+				</p></h4>
+
+				<form action="/shop/accounts/" method="get">
+					<select size="1"  name="accounts">
+					<option disabled>Выберите счета для списания</option><br>
+					{% for x in users_accounts %}
+						<option value="{{ x.number }}">Счёт № {{ x.number }}, на счету: {{ x.value }} руб. </option>
+							<a href=" {% url 'account_page' pk=x.pk %} ">Номер счета: {{ x.number }} ; Сумма на счету =  {{ x.value }} руб.
+					{% endfor %}
+					</select>
+					<p><input type="submit" value="Выбрать счета"></p>
+				</form>
+			</div>
+		</div>
 
 
+		<div class="search">
+			<div class="searching_user">
+				<br><h4>
+					Выберите пользователя которому перевести деньги.
+				</h4>
+				<p>
+					Введите имя пользователя:
+				</p>
+				<form action="{% url 'user_page' pk=user.pk %}" method="get">
+					<input name="q" type="text" placeholder="Искать пользователя...">
+				</form>
+			</div>
+	<!--		<a href="/shop/search">Сбросить поиск >></a><br>	-->
+<!--			<div style="display: table">	-->
+				<div class="searching_result">
+					<h4>
+						Результат поиска:
+					</h4>
+					<p>{{ not_found }}</p>
+					<ul>
+						{% for user in list_found_users %}
+							<li>
+								<form>
+								<a href=" {% url 'user_page' pk=user.pk %} ">
+									{{ user.name }} {{ user.second_name }}
+								</a>
+									<input type="submit" value="Выбрать">
+								</form>
+							</li>
+						{% endfor %}
+					</ul>
+				<div>
+<!--			</div>	-->
+		</div>
 
 	{% endblock %}
 
