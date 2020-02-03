@@ -44,59 +44,62 @@ h1, h2, h3, h4, h5, h6 {
 
 
 
-
+/*
 .heading {
     background: yellow;
-    width: 100%; /* Ширина слоя */
+    width: 100%;
 }
+*/
 
-
+/*
 .accounts {
-    background: dodgerblue;
-    width: 100%; /* Ширина слоя */
+    background: white;
+    width: 100%;
     border: 1px solid;
     overflow: hidden;
 
 }
 
-
 .list_of_accounts {
     float: left;
     background: red;
-    width: 50%; /* Ширина слоя */
-    max-width: 450px
+    width: 50%;   
+    max-width: 450px  
 }
 
 .account_selection {
     float: left;
     background: green;
-    width: 50%; /* Ширина слоя */
+    width: 50%;
     max-width: 450px
 }
+*/
 
+/*
 .search {
     vertical-align: top;
     float: left;
     background: orang_e;
-    width: 100%; /* Ширина слоя */
+    width: 100%;
     overflow: hidden;
+    border: 1px solid;
 }
 
 .searching_user {
     display: table-cell; 
     vertical-align: top;
     float: left;
-    background: re_d;
-    width: 50%; /* Ширина слоя */
-    max-width: 450px
-
+    background: red;
+    width: 50%;
+    border: 1px solid;
 }
 
 .searching_result {
     display: table-cell; 
     vertical-align: top;
     float: left;
-    background: gree_n;
-    width: 50%; /* Ширина слоя */
-    max-width: 450px
+    background: green;
+    width: 50%;
+    border: 1px solid;
 }
+*/

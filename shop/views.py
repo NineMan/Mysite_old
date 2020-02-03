@@ -1,5 +1,4 @@
 from django.core.paginator import Paginator, EmptyPage
-
 from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponse, HttpResponseNotFound
 from .models import User, Account
@@ -10,7 +9,7 @@ from .models import User, Account
 
 
 def index(request):
-	users = User.objects.all().order_by('name')
+	users = User.objects.all().order_by('id')
 	limit = 20
 
 	page = request.GET.get('page', 1)
@@ -30,16 +29,14 @@ def index(request):
 
 
 def user_page(request, pk):
-	not_found = ''
 	user = get_object_or_404(User, pk=pk)
 	users_accounts = Account.objects.all().filter(user_account=user)
 
+	query_name = request.GET.get('query')						# Выбираем из reques'a запрос (Имя пользователя)
+	list_found_users = User.objects.filter(name=query_name)		# <QuerySet [<User: name>]>
 
-	query = request.GET.get('q')
-	list_found_users = User.objects.all().order_by('name')		# Не правильно фильтрует. Нужно перенести в models
-	list_found_users = User.objects.filter(name=query)
-
-	if query and not list_found_users:
+	not_found = ''
+	if query_name and not list_found_users:
 		not_found = 'Такого пользователя не существует. Уточните поиск.'
 
 	list_accounts = []
@@ -47,8 +44,11 @@ def user_page(request, pk):
 	for users in list_found_users:
 		list_accounts.append(users.account_set.all())
 
-#	print(list_accounts[0][0], list_accounts[0][1])
-#	print(list_accounts[1])
+#	print('\n\n')
+#	print(list_accounts)
+##	print(list_accounts[0][0], list_accounts[0][1])
+##	print(list_accounts[1])
+#	print('\n\n')
 
 	return render(request, 'user_detail.html', { 
 		'user' : user, 
@@ -60,25 +60,12 @@ def user_page(request, pk):
 
 
 
-
-
-
-
-
-
-
-
-
 def accounts_page(request):
-	pk_list = request.GET.getlist("acc")
+	pk_list = request.GET.getlist("accounts")
 	print('\n\n   pk_list = {}   \n\n'.format(pk_list))
 	
 	if not pk_list:
-		print("Не выбран счёт\n\n")
-		return HttpResponseNotFound("Счёт не выбран")
-
-	pk = pk_list[0]
-	print('\n\n   pk = {}   \n\n'.format(pk))
+		return HttpResponseNotFound("Ни один счёт не выбран")
 
 	accounts = []
 	total_value = 0
@@ -86,13 +73,9 @@ def accounts_page(request):
 		account = get_object_or_404(Account, pk=pk)			# Выбираю первый отмеченный счёт
 		accounts.append(account)							# Собирают list (список) счетов 
 		total_value = total_value + account.value 			# Считаю сумму на счетах
-	print('\n\n   accounts = {}   \n\n'.format(accounts))
-
-
 
 	user_id = Account.objects.get(pk=pk).user_account_id	# Получаю id user'a у которого этот аккаунт
 	user = get_object_or_404(User, pk=user_id)				# На основе user_id получаю самого user'a
-
 
 	return render(request, 'account_detail.html', { 
 		'user' : user,
