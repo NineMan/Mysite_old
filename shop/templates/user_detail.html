@@ -21,21 +21,22 @@
 			<p><h4>Мои счета:</p></h4>
 
 			<div class="list_of_accounts">
-				{% for x in users_accounts %}
-					<div>
+				<form action="/shop/accounts/" method="get">
+					{% for x in users_accounts %}
 						<ul>
 							<li>
 								<h5>
-									<a href=" {% url 'account_page' pk=x.pk %} ">
+									<a href=" {% url 'account_page' pk=x.pk %} " title="счёт" name="accounts">
 										Номер счета: {{ x.number }} ; 
 										Сумма на счету =  {{ x.value }} руб.
 									</a>
 								</h5>
 							</li>
 						</ul>
-					</div>	
-				{% endfor %}
+					{% endfor %}
+				</form>
 			</div>
+
 
 	{% endblock %}
 
