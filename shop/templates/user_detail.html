@@ -19,7 +19,6 @@
 
 		<div class="accounts">
 			<p><h4>Мои счета:</p></h4>
-
 			<div class="list_of_accounts">
 				<form action="/shop/accounts/" method="get">
 					{% for x in users_accounts %}
@@ -36,7 +35,16 @@
 					{% endfor %}
 				</form>
 			</div>
+		</div>
+		<br>
 
+		<div class="find_users">
+			<form action="/shop/search" method="get">
+				<h4>Выберите пользователя которому нужно отправить средства:</h4>
+				<input type="button" name="search_user" placeholder="жми">
+				<a href="/shop/search/">Поиск пользователя >></a>	
+			</form>
+		</div>
 
 	{% endblock %}
 

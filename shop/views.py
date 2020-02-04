@@ -4,10 +4,6 @@ from django.http import HttpResponse, HttpResponseNotFound
 from .models import User, Account
 
 
-
-
-
-
 def index(request):
 	users = User.objects.all().order_by('id')
 	limit = 20
@@ -32,30 +28,9 @@ def user_page(request, pk):
 	user = get_object_or_404(User, pk=pk)
 	users_accounts = Account.objects.all().filter(user_account=user)
 
-	query_name = request.GET.get('query')						# Выбираем из reques'a запрос (Имя пользователя)
-	list_found_users = User.objects.filter(name=query_name)		# <QuerySet [<User: name>]>
-
-	not_found = ''
-	if query_name and not list_found_users:
-		not_found = 'Такого пользователя не существует. Уточните поиск.'
-
-	list_accounts = []
-
-	for users in list_found_users:
-		list_accounts.append(users.account_set.all())
-
-#	print('\n\n')
-#	print(list_accounts)
-##	print(list_accounts[0][0], list_accounts[0][1])
-##	print(list_accounts[1])
-#	print('\n\n')
-
 	return render(request, 'user_detail.html', { 
 		'user' : user, 
 		'users_accounts' : users_accounts,
-
-		'list_found_users' : list_found_users,
-		'not_found' : not_found
 		})
 
 
