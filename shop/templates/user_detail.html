@@ -14,35 +14,6 @@
 			</p></h3>
 		</div>	
 
-		<div class="search">
-			<h4>Выберите пользователя которому перевести деньги</h4>
-
-			<div class="searching_user">
-				<p>
-					Введите имя пользователя:
-				</p>
-				<form action="{% url 'user_page' pk=user.pk %}" method="get">
-					<input name="query" type="text" placeholder="Искать пользователя...">
-				</form>
-			</div>
-
-			<div class="searching_result">
-				<h4>Результат поиска:</h4>
-				<p>{{ not_found }}</p>
-				<ul>
-					{% for user in list_found_users %}
-						<li>
-							<form>
-								<a href=" {% url 'user_page' pk=user.pk %} ">{{ user.name }} {{ user.second_name }}</a>
-								<input type="submit" value="Выбрать">
-							</form>
-						</li>
-					{% endfor %}
-				</ul>
-				<br>
-			<div>
-		</div>
-
 
 <!-- Список счетов на checkbox'ах -->
 
@@ -50,69 +21,21 @@
 			<p><h4>Мои счета:</p></h4>
 
 			<div class="list_of_accounts">
-				<form action="/shop/accounts/" method="get">
-					{% for x in users_accounts %}
-						<div>
-							<ul>
-								<li>
-									<h5>
-									<input type="checkbox" name= "accounts" value="{{x.pk}}">
-										<a href=" {% url 'account_page' pk=x.pk %} ">
-											Номер счета: {{ x.number }} ; 
-											Сумма на счету =  {{ x.value }} руб.
-										</a>
-									</h5>
-								</li>
-							</ul>
-						</div>	
-					{% endfor %}
-					<p><input type="submit" value="Выбрать счета"></p>
-				</form>
-			</div>
-
-
-<!-- Список счетов и выпадающий список -->
-
-<!--			<div class="list_of_accounts">
-				<form action="/shop/accounts/" method="get">
-					{% for x in users_accounts %}
+				{% for x in users_accounts %}
+					<div>
 						<ul>
 							<li>
 								<h5>
+									<a href=" {% url 'account_page' pk=x.pk %} ">
 										Номер счета: {{ x.number }} ; 
 										Сумма на счету =  {{ x.value }} руб.
 									</a>
 								</h5>
 							</li>
 						</ul>
-					{% endfor %}
-				</form>
-			</div>	-->
-
-<!--			<div class="account_selection">
-
-				<p><h4>Выберите счета для списания: 
-				</p></h	4>
-
-				<form action="/shop/accounts/" method="get">
-					<select size="1"  name="accounts">
-					<option disabled>Выберите счета для списания</option><br>
-					{% for x in users_accounts %}
-						<option value="{{ x.pk }}">Счёт № {{ x.number }}, на счету: {{ x.value }} руб. </option>
-							<a href=" {% url 'account_page' pk=x.pk %} ">Номер счета: {{ x.number }} ; Сумма на счету =  {{ x.value }} руб.
-					{% endfor %}
-					</select>
-					<p><input type="submit" value="Выбрать счета"></p>
-				</form>
+					</div>	
+				{% endfor %}
 			</div>
-		</div>	-->
-
-		<div class="debit_of">
-			<p><h4>Укажите сумму для списания:</p></h4>
-			<form action="{% url 'user_page' pk=user.pk %}" method="get">
-				Сумма* <input name="debit_of" maxlength="10" size="20" placeholder="введите сумму перевода"> руб.
-			</form>
-		</div>
 
 	{% endblock %}
 
