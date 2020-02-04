@@ -74,6 +74,21 @@ def account_page(request, pk):
 
 #----------------------------------
 
+def search_user(request):
+	not_found = ''
+	query = request.GET.get('q')
+	list_users = User.objects.all().order_by('name')
+	list_users = User.objects.filter(name=query)
+
+	if query and not list_users:
+		not_found = 'Такого пользователя не существует. Уточните поиск.'
+
+	return render(request, 'search_user.html', {
+		'list_users' : list_users,
+		'not_found' : not_found
+		})
+
+
 def search_page(request):
 	not_found = ''
 	query = request.GET.get('q')
@@ -87,4 +102,3 @@ def search_page(request):
 		'list_users' : list_users,
 		'not_found' : not_found
 		})
-

@@ -1,4 +1,4 @@
-<!-- templates/search_page.html -->
+<!-- templates/search_user.html -->
 {% extends 'base.html' %}
 
 {% block head %}
@@ -8,7 +8,7 @@
 	{% block page %}
 
 		<h3>Введите имя пользователя:</h3>
-		<form action="{% url 'search_page' %}" method="get">
+		<form action="{% url 'search_user' %}" method="get">
 			<input name="q" type="text" placeholder="Искать пользователя...">
 		</form>
 
@@ -21,7 +21,7 @@
 		<ul>
 		  {% for user in list_users %}
 		    <li>
-			<a href=" {% url 'user_page' pk=user.pk %} ">{{ user.name }} {{ user.second_name }} </a>
+				<a href=" {% url 'user_page' pk=user.pk %} ">{{ user.name }} {{ user.second_name }} </a>
 		    </li>
 		  {% endfor %}
 		</ul>
@@ -34,9 +34,3 @@
 	{% block sidebar %}
 	{% endblock %}
 {% endblock %}
-
-{% block footer %}
-{% endblock %}
-
-
-

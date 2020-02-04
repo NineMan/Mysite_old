@@ -40,9 +40,21 @@
 
 		<div class="find_users">
 			<form action="/shop/search" method="get">
-				<h4>Выберите пользователя которому нужно отправить средства:</h4>
-				<input type="button" name="search_user" placeholder="жми">
-				<a href="/shop/search/">Поиск пользователя >></a>	
+				<h4>Переводы:</h4>
+					<ul>
+						<li>
+							<p>
+<!--								<input type="submit" value="Сделать перевод другому пользователю">	-->
+								<a href="/shop/search/">Сделать перевод другому пользователю >></a>
+							</p>
+						</li>
+						<li>	
+							<p>
+			<!--					<input type="submit" value="Сделать перевод между своими счетами">	-->
+							<a href="">Сделать перевод между своими счетами >></a>
+							</p>
+						</li>
+					</ul>
 			</form>
 		</div>
 
@@ -53,7 +65,4 @@
 
 	{% block sidebar %}
 	{% endblock %}
-{% endblock %}
-
-{% block footer %}
 {% endblock %}

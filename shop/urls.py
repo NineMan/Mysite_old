@@ -9,5 +9,5 @@ urlpatterns = [
     path('user/<int:pk>/', views.user_page, name = 'user_page'),    				#  новый синтаксис
     path('accounts/', views.accounts_page, name = 'accounts_page'),
     path('account/<int:pk>', views.account_page, name = 'account_page'),
-    path('search/', views.search_page, name = 'search_page'),
+    path('search/', views.search_user, name = 'search_user'),
 ]
