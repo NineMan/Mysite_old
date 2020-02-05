@@ -39,13 +39,16 @@
 		<br>
 
 		<div class="find_users">
-			<form action="/shop/search" method="get">
+			<form action="/shop/search/?pk={{user.pk}}" method="get">
 				<h4>Переводы:</h4>
 					<ul>
 						<li>
 							<p>
-<!--								<input type="submit" value="Сделать перевод другому пользователю">	-->
-								<a href="/shop/search/">Сделать перевод другому пользователю >></a>
+								<input type="hidden" name="pk" value="{{user.pk}}">
+								<input type="button" value="Сделать перевод">
+					
+								<input type="submit" value="Сделать перевод другому пользователю">
+								<a href="/shop/search/?pk={{user.pk}}">Сделать перевод другому пользователю >></a>
 							</p>
 						</li>
 						<li>	

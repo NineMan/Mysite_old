@@ -13,8 +13,8 @@ def index(request):
 	paginator.baseurl = '/shop/?page='	#
 
 	try:
-		page = paginator.page(page)					# Page
-	except EmptyPage:						# Exception as e:
+		page = paginator.page(page)						# Page
+	except EmptyPage:									# Exception as e:
 		page = paginator.page(paginator.num_pages)
 
 	return render(request, 'index.html', {
@@ -34,7 +34,52 @@ def user_page(request, pk):
 		})
 
 
+def account_page(request, pk):
+	account = get_object_or_404(Account, pk=pk)
+	us_id = Account.objects.get(pk=pk).user_account_id
+	user = get_object_or_404(User, pk=us_id)
 
+	return render(request, 'account_detail.html', { 
+		'user' : user,
+		'account' : account 
+		})
+
+
+def search_user(request):
+	not_found = ''
+	pk = request.GET.get('pk')
+	user = User.objects.get(pk=pk)
+
+	query = request.GET.get('q')
+	list_users = User.objects.filter(name=query)
+
+	if query and not list_users:
+		not_found = 'Такого пользователя не существует. Уточните поиск.'
+
+	return render(request, 'search_user.html', {
+		'user' : user,
+		'list_users' : list_users,
+		'not_found' : not_found,
+		})
+
+
+
+
+
+
+def accounts_page(request):
+	pk = request.GET.get('pk')
+	find_user = request.GET.get('fu')
+	user = User.objects.get(pk=pk)
+	users_accounts = Account.objects.all().filter(user_account=user)
+
+	return render(request, 'accounts.html', {
+		'find_user' : find_user,
+		'user' : user,
+		'users_accounts' : users_accounts,
+		})
+
+'''
 def accounts_page(request):
 	pk_list = request.GET.getlist("accounts")
 	print('\n\n   pk_list = {}   \n\n'.format(pk_list))
@@ -57,48 +102,5 @@ def accounts_page(request):
 		'accounts' : accounts,
 		'total_value' : total_value 
 		})
+'''
 
-
-def account_page(request, pk):
-	account = get_object_or_404(Account, pk=pk)
-	us_id = Account.objects.get(pk=pk).user_account_id
-	user = get_object_or_404(User, pk=us_id)
-
-	return render(request, 'account_detail.html', { 
-		'user' : user,
-		'account' : account 
-		})
-
-
-
-
-#----------------------------------
-
-def search_user(request):
-	not_found = ''
-	query = request.GET.get('q')
-	list_users = User.objects.all().order_by('name')
-	list_users = User.objects.filter(name=query)
-
-	if query and not list_users:
-		not_found = 'Такого пользователя не существует. Уточните поиск.'
-
-	return render(request, 'search_user.html', {
-		'list_users' : list_users,
-		'not_found' : not_found
-		})
-
-
-def search_page(request):
-	not_found = ''
-	query = request.GET.get('q')
-	list_users = User.objects.all().order_by('name')
-	list_users = User.objects.filter(name=query)
-
-	if query and not list_users:
-		not_found = 'Такого пользователя не существует. Уточните поиск.'
-
-	return render(request, 'search_page.html', {
-		'list_users' : list_users,
-		'not_found' : not_found
-		})

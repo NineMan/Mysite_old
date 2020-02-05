@@ -7,24 +7,42 @@
 {% block content %}
 	{% block page %}
 
-		<h3>Введите имя пользователя:</h3>
-		<form action="{% url 'search_user' %}" method="get">
-			<input name="q" type="text" placeholder="Искать пользователя...">
-		</form>
+		<div class="heading" align="center">
+			<p><h3>Это страничка пользователя  
+					<b>  {{ user.name }} </b>
+					<br><br>
+			</p></h3>
+		</div>	
 
-		<a href="/shop/search">Сбросить поиск >></a>		
-		<br>
+		<div class="search_user">
+			<h4>
+				Введите имя пользователя:
+			</h4>
+			<form action="{% url 'search_user' %}" method="get">
+				<input type="hidden" name="pk" value="{{ user.pk }}">
+				<input type="text"   name="q"  placeholder="Искать пользователя...">
+			</form>
+		</div>
 
-		<h3>Результат поиска:</h3>
-		 
-		<p>{{ not_found }}</p>
-		<ul>
-		  {% for user in list_users %}
-		    <li>
-				<a href=" {% url 'user_page' pk=user.pk %} ">{{ user.name }} {{ user.second_name }} </a>
-		    </li>
-		  {% endfor %}
-		</ul>
+		<div class="search_result">
+			<h4>
+				Результат поиска:
+			</h4>
+			<p>{{ not_found }}</p>
+			<ul>
+				{% for find_user in list_users %}
+					<li>
+<!--						<a href=" {% url 'user_page' pk=find_user.pk %} ">{{find_user.name}} {{find_user.second_name}} </a><br>	-->
+						<a href=" /shop/accounts/?pk={{user.pk}}&fu={{find_user.pk}} ">
+							{{ find_user.name }} {{ find_user.second_name }}
+						 </a>
+					</li>
+				{% endfor %}
+			</ul>
+			<a href="/shop/search/?pk={{ user.pk }}">
+				Сбросить поиск >>				
+			</a><br>
+		</div>
 
 	{% endblock %}
 
