@@ -26,7 +26,7 @@
 							<ul>
 								<li>
 									<h5>
-									<input type="checkbox" name= "accounts" value="{{x.pk}}">
+									<input type="checkbox" name= "ta" value="{{x.pk}}">
 <!--										<a href=" {% url 'account_page' pk=x.pk %} ">	-->
 											Номер счета: {{ x.number }} ; 
 											Сумма на счету =  {{ x.value }} руб.
@@ -37,8 +37,9 @@
 						</div>	
 					{% endfor %}
 					<br>
-					<p><input type="hidden" name="pk" value="{{ user.pk }}"></p>
-					<p><input type="hidden" name="fu" value="{{ find_user }}"></p>
+					<p><input type="hidden" name="tu" value="{{ user.pk }}"></p>
+					<p><input type="hidden" name="ru" value="{{ recipient_user }}"></p>
+					<p><input type="hidden" name="ra" value="{{ recipient_account }}"></p>
 					<p><input type="submit" value="Выбрать"></p>
 					<p>Выберите счета с которых списать.</h4>
 				</form>

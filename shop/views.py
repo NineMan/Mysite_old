@@ -53,7 +53,7 @@ def search_user(request):
 	query = request.GET.get('q')
 	list_users = User.objects.filter(name=query)
 
-	if query and not list_users:
+	if query and not list_users.exists():
 		not_found = 'Такого пользователя не существует. Уточните поиск.'
 
 	return render(request, 'search_user.html', {
@@ -63,20 +63,26 @@ def search_user(request):
 		})
 
 
-
-
-
-
 def accounts_page(request):
-	pk = request.GET.get('pk')
-	find_user = request.GET.get('fu')
-	user = User.objects.get(pk=pk)
+	tu = request.GET.get('tu')						# tu == transfer_user (id)	==	отправитель(id)
+	recipient_user = request.GET.get('ru')			# recipient_user (id)		==	получатель (id)
+	recipient_account = request.GET.get('ra')		# recipient_account (id)	==	счёт получателя (id)
+
+	print("\n\n")
+	print(tu)
+	print(recipient_user)
+	print(recipient_account)
+	print("\n\n")
+
+
+	user = User.objects.get(pk=tu)
 	users_accounts = Account.objects.all().filter(user_account=user)
 
 	return render(request, 'accounts.html', {
-		'find_user' : find_user,
 		'user' : user,
 		'users_accounts' : users_accounts,
+		'recipient_user' : recipient_user,
+		'recipient_account': recipient_account,
 		})
 
 '''
