@@ -1,0 +1,26 @@
+<!-- templates/sum_transfer.html -->
+{% extends 'transfer.html' %}
+
+	{% block page %}
+		<div>
+			<form action="{% url 'transfer_detail' %}" method="get">
+				<h4>
+					Введите сумму, которую необходимо перевести:
+				</h4>
+
+				<input type="hidden" name="tu" value="{{ transfer_user }}">
+				
+				{% for account in transfer_account %}
+					<input type="hidden" name="ta" value="{{ account }}">
+				{% endfor %}
+
+				<input type="hidden" name="ru" value="{{ recipient_user }}">
+				<input type="hidden" name="ra" value="{{ recipient_account }}">
+
+				<input type="text" title="Введите сумму, которую необходимо перевести" size="12" name="ts"> руб.<br>
+				<input type="reset" value="Сброс">
+				<input type="submit" value="Перевести">
+			</form>
+		</div>
+	{% endblock %}
+

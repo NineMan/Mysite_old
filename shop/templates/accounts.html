@@ -1,26 +1,15 @@
 <!-- templates/user_detail.html -->
-{% extends 'base.html' %}
+{% extends 'transfer.html' %}
 
-{% block head %}
-{% endblock %}
-
-{% block content %}
 	{% block page %}
-
-		<div class="heading" align="center">
-			<p><h3>Это страничка пользователя  
-					<b>  {{ user.name }} </b>
-					<br><br>
-			</p></h3>
-		</div>	
 
 <!-- Список счетов на checkbox'ах -->
 
 		<div class="accounts">
-			<p><h4>Мои счета:</p></h4>
+			<p><h4>Выберите счета списания:</p></h4>
 
 			<div class="list_of_accounts">
-				<form action="/shop/accounts/" method="get">
+				<form action="/shop/transfer/" method="get">
 					{% for x in users_accounts %}
 						<div>
 							<ul>
@@ -36,12 +25,10 @@
 							</ul>
 						</div>	
 					{% endfor %}
-					<br>
 					<p><input type="hidden" name="tu" value="{{ user.pk }}"></p>
 					<p><input type="hidden" name="ru" value="{{ recipient_user }}"></p>
 					<p><input type="hidden" name="ra" value="{{ recipient_account }}"></p>
 					<p><input type="submit" value="Выбрать"></p>
-					<p>Выберите счета с которых списать.</h4>
 				</form>
 			</div>
 
@@ -82,7 +69,4 @@
 			</div>
 		</div>	-->
 
-
 	{% endblock %}
-
-{% endblock %}

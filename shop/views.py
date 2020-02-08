@@ -64,18 +64,18 @@ def search_user(request):
 
 
 def accounts_page(request):
-	tu = request.GET.get('tu')						# tu == transfer_user (id)	==	отправитель(id)
+	transfer_user = request.GET.get('tu')			# tu == transfer_user (id)	==	отправитель(id)
 	recipient_user = request.GET.get('ru')			# recipient_user (id)		==	получатель (id)
 	recipient_account = request.GET.get('ra')		# recipient_account (id)	==	счёт получателя (id)
 
 	print("\n\n")
-	print(tu)
+	print(transfer_user)
 	print(recipient_user)
 	print(recipient_account)
 	print("\n\n")
 
 
-	user = User.objects.get(pk=tu)
+	user = User.objects.get(pk=transfer_user)
 	users_accounts = Account.objects.all().filter(user_account=user)
 
 	return render(request, 'accounts.html', {
@@ -84,6 +84,51 @@ def accounts_page(request):
 		'recipient_user' : recipient_user,
 		'recipient_account': recipient_account,
 		})
+
+
+def sum_transfer(request):
+	transfer_user = request.GET.get('tu')			# tu == transfer_user (id)	==	отправитель(id)
+	transfer_account = request.GET.getlist('ta')	# ta == transfer_account (id) == счет(а) отправителя(id)
+	recipient_user = request.GET.get('ru')			# recipient_user (id)		==	получатель (id)
+	recipient_account = request.GET.get('ra')		# recipient_account (id)	==	счёт получателя (id)
+
+	user = User.objects.get(pk=transfer_user)
+
+	return render(request, 'sum_transfer.html', {
+		'user' : user,
+		'transfer_user' : transfer_user,
+		'transfer_account' : transfer_account,
+		'recipient_user' : recipient_user,
+		'recipient_account': recipient_account,
+		})
+
+
+
+def transfer_detail(request):
+	transfer_user_id = request.GET.get('tu')			# tu == transfer_user (id)	==	отправитель(id)
+#	transfer_account_ids = request.GET.getlist('ta')	# ta == transfer_account (id) == счет(а) отправителя(id)
+	transfer_sum = int(request.GET.get('ts'))			# ts == tansfer_sum == сумма перевода
+	print(transfer_sum)
+	recipient_user_id = request.GET.get('ru')			# recipient_user (id)		==	получатель (id)
+	recipient_account_id = request.GET.get('ra')		# recipient_account (id)	==	счёт получателя (id)
+
+
+	user = User.objects.get(pk=transfer_user_id)
+	transfer_user = user
+	recipient_user = User.objects.get(pk=recipient_user_id)
+	recipient_account = Account.objects.get(pk=recipient_account_id)
+
+	return render(request, 'transfer_detail.html', {
+		'user' : user,
+		'transfer_user_id' : transfer_user_id,
+		'transfer_sum' : transfer_sum,
+		'recipient_user_id' : recipient_user_id,
+		'recipient_account_id' : recipient_account_id,
+		'transfer_user' : transfer_user,
+		'recipient_user' : recipient_user,
+		'recipient_account' : recipient_account,
+		})
+
 
 '''
 def accounts_page(request):

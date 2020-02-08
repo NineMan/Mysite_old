@@ -1,71 +1,52 @@
 <!-- templates/user_detail.html -->
 {% extends 'base.html' %}
 
-{% block head %}
-{% endblock %}
-
-{% block content %}
-	{% block page %}
-
-		<div class="heading" align="center">
-			<p><h3>Это страничка пользователя  
-					<b>  {{ user.name }} </b>
-					<br><br>
-			</p></h3>
-		</div>	
-
-
+{% block page %}
 <!-- Список счетов на checkbox'ах -->
 
-		<div class="accounts">
-			<p><h4>Мои счета:</p></h4>
-			<div class="list_of_accounts">
-				<form action="/shop/accounts/" method="get">
-					{% for x in users_accounts %}
-						<ul>
-							<li>
-								<h5>
-									<a href=" {% url 'account_page' pk=x.pk %} " title="счёт" name="accounts">
-										Номер счета: {{ x.number }} ; 
-										Сумма на счету =  {{ x.value }} руб.
-									</a>
-								</h5>
-							</li>
-						</ul>
-					{% endfor %}
-				</form>
-			</div>
-		</div>
-		<br>
-
-		<div class="find_users">
-			<form action="/shop/search/?pk={{user.pk}}" method="get">
-				<h4>Переводы:</h4>
+	<div class="accounts">
+		<p><h4>Мои счета:</p></h4>
+		<div class="list_of_accounts">
+			<form action="/shop/accounts/" method="get">
+				{% for x in users_accounts %}
 					<ul>
 						<li>
-							<p>
-<!--								<input type="hidden" name="pk" value="{{user.pk}}">
-								<input type="button" value="Сделать перевод">	Не работает
-								<input type="submit" value="Сделать перевод другому пользователю">		-->
-								<h2>
-									<a href="/shop/search/?pk={{user.pk}}">Сделать перевод другому пользователю >></a>
-								</h2>
-							</p>
+							<h5>
+								<a href=" {% url 'account_page' pk=x.pk %} " title="счёт" name="accounts">
+									Номер счета: {{ x.number }} ; 
+									Сумма на счету =  {{ x.value }} руб.
+								</a>
+							</h5>
 						</li>
-<!--						<li>	
-							<p>
-							<a href="">Сделать перевод между своими счетами >></a>
-							</p>
-						</li>	-->
 					</ul>
+				{% endfor %}
 			</form>
 		</div>
+	</div>
+	<br>
 
-	{% endblock %}
+	<div class="find_users">
+		<form action="/shop/search/?pk={{user.pk}}" method="get">
+			<h4>Переводы:</h4>
+				<ul>
+					<li>
+						<p>
+<!--								<input type="hidden" name="pk" value="{{user.pk}}">
+							<input type="button" value="Сделать перевод">	Не работает
+							<input type="submit" value="Сделать перевод другому пользователю">		-->
+							<h2>
+								<a href="/shop/search/?pk={{user.pk}}">Сделать перевод другому пользователю >></a>
+							</h2>
+						</p>
+					</li>
+<!--						<li>	
+						<p>
+						<a href="">Сделать перевод между своими счетами >></a>
+						</p>
+					</li>	-->
+				</ul>
+		</form>
+	</div>
 
-	{% block additional %}
-	{% endblock %}
-
-	{% block sidebar %}
-	{% endblock %}
 {% endblock %}
+

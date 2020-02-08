@@ -1,55 +1,38 @@
 <!-- templates/search_user.html -->
-{% extends 'base.html' %}
+{% extends 'transfer.html' %}
 
-{% block head %}
-{% endblock %}
+{% block page %}
 
-{% block content %}
-	{% block page %}
+	<div class="search_user">
+		<h4>
+			Введите имя пользователя:
+		</h4>
+		<form action="{% url 'search_user' %}" method="get">
+			<input type="hidden" name="pk" value="{{ user.pk }}">
+			<input type="text"   name="q"  placeholder="Искать пользователя...">
+		</form>
+	</div>
 
-		<div class="heading" align="center">
-			<p><h3>Это страничка пользователя  
-					<b>  {{ user.name }} </b>
-					<br><br>
-			</p></h3>
-		</div>	
-
-		<div class="search_user">
-			<h4>
-				Введите имя пользователя:
-			</h4>
-			<form action="{% url 'search_user' %}" method="get">
-				<input type="hidden" name="pk" value="{{ user.pk }}">
-				<input type="text"   name="q"  placeholder="Искать пользователя...">
-			</form>
-		</div>
-
-		<div class="search_result">
-			<h4>
-				Результат поиска:
-			</h4>
-			<p>{{ not_found }}</p>
-			<ul>
-				{% for find_user in list_users %}
-					{% for account in find_user.account_set.all %}
-						<li>
+	<div class="search_result">
+		<h4>
+			Результат поиска:
+		</h4>
+		<p>{{ not_found }}</p>
+		<ul>
+			{% for find_user in list_users %}
+				{% for account in find_user.account_set.all %}
+					<li>
 						<a href=" /shop/accounts/?tu={{user.pk}}&ru={{find_user.pk}}&ra={{account.pk}} ">
-						{{ find_user.name }} {{ find_user.second_name }}
-						счёт № {{ account.number }}</a><br>
-						</li>
-					{% endfor %}
+							{{ find_user.name }} {{ find_user.second_name }}
+							счёт № {{ account.number }}
+						</a><br>
+					</li>
 				{% endfor %}
-			</ul>
-			<a href="/shop/search/?pk={{ user.pk }}">
-				Сбросить поиск >>				
-			</a><br>
-		</div>
+			{% endfor %}
+		</ul>
+		<a href="/shop/search/?pk={{ user.pk }}">
+			Сбросить поиск >>				
+		</a><br>
+	</div>
 
-	{% endblock %}
-
-	{% block additional %}
-	{% endblock %}
-
-	{% block sidebar %}
-	{% endblock %}
 {% endblock %}

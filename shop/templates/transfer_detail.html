@@ -1,16 +1,58 @@
 <!-- templates/transfer_detail.html -->
-{% extends 'base.html' %}
+{% extends 'transfer.html' %}
 
-{% block head %}
-{% endblock %}
-
-{% block content %}
 	{% block page %}
-
+		<h3>
+			Проверьте и подтвердите реквизиты платежа
+		</h3>
 		
+		<div>
+			<h4>
+				Отправитель:
+			</h4>
+			<p>
+				ФИО: {{ transfer_user.name }} {{ transfer_user.second_name}}
+			</p>
+			<p>
+				Счет(а) списания: 
+			</p><br>
+
+			<h4>
+				Получатель:
+			</h4>
+			<p>
+				ФИО: {{ recipient_user.name }} {{ recipient_user.second_name }}
+			</p>
+			<p>
+				Счёт: {{ recipient_account.number }}
+			</p><br>
+
+			<h4>
+				Сумма перевода:
+			</h4>
+			<p>
+				{{ transfer_sum }} руб.
+			</p>
+
+			<div>
+				<form action="{% url 'transfer_detail' %}" method="get">
+					<input type="hidden" name="tu" value="{{ transfer_user_id }}">
+					{% for account in transfer_account_id %}
+						<input type="hidden" name="ta" value="{{ account }}">
+					{% endfor %}
+					<input type="hidden" name="ts" value="{{ transfer_sum }}">
+					<input type="hidden" name="ru" value="{{ recipient_user_id }}">
+					<input type="hidden" name="ra" value="{{ recipient_account_id }}">
+
+<!--					<input type="reset" value="Сброс">	-->
+					<input type="submit" value="Подтверждаю">
+				</form>
+			</div>
+
+
+		</div>	
 
 
 	{% endblock %}
 
-{% endblock %}
 

@@ -10,4 +10,6 @@ urlpatterns = [
     path('accounts/', views.accounts_page, name = 'accounts_page'),
     path('account/<int:pk>', views.account_page, name = 'account_page'),
     path('search/', views.search_user, name = 'search_user'),
+    path('transfer/', views.sum_transfer, name = 'sum_transfer'),
+    path('transfer_detail/', views.transfer_detail, name = 'transfer_detail'),
 ]
