@@ -68,13 +68,6 @@ def accounts_page(request):
 	recipient_user = request.GET.get('ru')			# recipient_user (id)		==	получатель (id)
 	recipient_account = request.GET.get('ra')		# recipient_account (id)	==	счёт получателя (id)
 
-	print("\n\n")
-	print(transfer_user)
-	print(recipient_user)
-	print(recipient_account)
-	print("\n\n")
-
-
 	user = User.objects.get(pk=transfer_user)
 	users_accounts = Account.objects.all().filter(user_account=user)
 
@@ -103,29 +96,35 @@ def sum_transfer(request):
 		})
 
 
-
 def transfer_detail(request):
 	transfer_user_id = request.GET.get('tu')			# tu == transfer_user (id)	==	отправитель(id)
-#	transfer_account_ids = request.GET.getlist('ta')	# ta == transfer_account (id) == счет(а) отправителя(id)
+	transfer_accounts_id = request.GET.getlist('ta')	# ta == transfer_account (id) == счет(а) отправителя(id)
 	transfer_sum = int(request.GET.get('ts'))			# ts == tansfer_sum == сумма перевода
-	print(transfer_sum)
 	recipient_user_id = request.GET.get('ru')			# recipient_user (id)		==	получатель (id)
 	recipient_account_id = request.GET.get('ra')		# recipient_account (id)	==	счёт получателя (id)
 
 
 	user = User.objects.get(pk=transfer_user_id)
 	transfer_user = user
+	transfer_accounts = []
+	print(type(transfer_accounts_id))
+	for account in transfer_accounts_id:
+		transfer_accounts.append(Account.objects.get(pk=account))
+		print(transfer_accounts)
+
 	recipient_user = User.objects.get(pk=recipient_user_id)
 	recipient_account = Account.objects.get(pk=recipient_account_id)
 
 	return render(request, 'transfer_detail.html', {
 		'user' : user,
 		'transfer_user_id' : transfer_user_id,
+		'transfer_user' : transfer_user,
+		'transfer_accounts_id' : transfer_accounts_id,
+		'transfer_accounts' : transfer_accounts,
 		'transfer_sum' : transfer_sum,
 		'recipient_user_id' : recipient_user_id,
-		'recipient_account_id' : recipient_account_id,
-		'transfer_user' : transfer_user,
 		'recipient_user' : recipient_user,
+		'recipient_account_id' : recipient_account_id,
 		'recipient_account' : recipient_account,
 		})
 
@@ -154,4 +153,3 @@ def accounts_page(request):
 		'total_value' : total_value 
 		})
 '''
-
