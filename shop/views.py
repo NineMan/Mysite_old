@@ -2,6 +2,7 @@ from django.core.paginator import Paginator, EmptyPage
 from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponse, HttpResponseNotFound
 from .models import User, Account
+from . import services
 
 
 def index(request):
@@ -107,10 +108,8 @@ def transfer_detail(request):
 	user = User.objects.get(pk=transfer_user_id)
 	transfer_user = user
 	transfer_accounts = []
-	print(type(transfer_accounts_id))
 	for account in transfer_accounts_id:
 		transfer_accounts.append(Account.objects.get(pk=account))
-		print(transfer_accounts)
 
 	recipient_user = User.objects.get(pk=recipient_user_id)
 	recipient_account = Account.objects.get(pk=recipient_account_id)
@@ -129,27 +128,41 @@ def transfer_detail(request):
 		})
 
 
-'''
-def accounts_page(request):
-	pk_list = request.GET.getlist("accounts")
-	print('\n\n   pk_list = {}   \n\n'.format(pk_list))
+def transfer_calc(request):
+	transfer_user_id = request.GET.get('tu')			# tu == transfer_user (id)	==	отправитель(id)
+	user = User.objects.get(pk=transfer_user_id)
+	transfer_user = user
+
+	transfer_accounts_id = request.GET.getlist('ta')	# ta == transfer_account (id) == счет(а) отправителя(id)
+	transfer_accounts = []
+	for account in transfer_accounts_id:
+		transfer_accounts.append(Account.objects.get(pk=account))
+
+	transfer_sum = int(request.GET.get('ts'))			# ts == tansfer_sum == сумма перевода
+
+	recipient_user_id = request.GET.get('ru')			# recipient_user (id)		==	получатель (id)
+	recipient_user = User.objects.get(pk=recipient_user_id)
+
+	recipient_account_id = request.GET.get('ra')		# recipient_account (id)	==	счёт получателя (id)
+	recipient_account = Account.objects.get(pk=recipient_account_id)
+
+
+
+	test = services.sum_accounts(transfer_accounts)
 	
-	if not pk_list:
-		return HttpResponseNotFound("Ни один счёт не выбран")
-
-	accounts = []
-	total_value = 0
-	for pk in pk_list:
-		account = get_object_or_404(Account, pk=pk)			# Выбираю первый отмеченный счёт
-		accounts.append(account)							# Собирают list (список) счетов 
-		total_value = total_value + account.value 			# Считаю сумму на счетах
-
-	user_id = Account.objects.get(pk=pk).user_account_id	# Получаю id user'a у которого этот аккаунт
-	user = get_object_or_404(User, pk=user_id)				# На основе user_id получаю самого user'a
-
-	return render(request, 'account_detail.html', { 
+	return render(request, 'transfer_calc.html', {
 		'user' : user,
-		'accounts' : accounts,
-		'total_value' : total_value 
+		'test' : test,
+		'transfer_user' : transfer_user,
+		'transfer_accounts' : transfer_accounts,
+
+
+
+		'transfer_user' : transfer_user,
+		'transfer_accounts_id' : transfer_accounts_id,
+		'transfer_sum' : transfer_sum,
+		'recipient_user_id' : recipient_user_id,
+		'recipient_user' : recipient_user,
+		'recipient_account_id' : recipient_account_id,
+		'recipient_account' : recipient_account,
 		})
-'''

@@ -38,9 +38,9 @@
 			</p>
 
 			<div>
-				<form action="{% url 'transfer_detail' %}" method="get">
+				<form action="{% url 'transfer_calc' %}" method="get">
 					<input type="hidden" name="tu" value="{{ transfer_user_id }}">
-					{% for account in transfer_account_id %}
+					{% for account in transfer_accounts_id %}
 						<input type="hidden" name="ta" value="{{ account }}">
 					{% endfor %}
 					<input type="hidden" name="ts" value="{{ transfer_sum }}">

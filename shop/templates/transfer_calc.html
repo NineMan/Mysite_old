@@ -1,0 +1,26 @@
+<!-- templates/transfer_detail.html -->
+{% extends 'transfer.html' %}
+
+	{% block page %}
+		<h3>
+			Сумма всех счетов пользователя:
+		</h3>
+		
+		<div>
+			<h4>
+				Отправитель:
+			</h4>
+			<p>
+				ФИО: {{ transfer_user.name }} {{ transfer_user.second_name}}
+			</p>
+			<p>
+				{% for account in transfer_accounts %}
+					<br>Счёт № {{ account }}, на счету {{ account.value }} руб.
+				{% endfor %}
+			</p><br>
+				Сумма всех счетов пользователя:
+				{{ test }}
+
+	{% endblock %}
+
+
