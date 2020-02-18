@@ -18,8 +18,16 @@
 					<br>Счёт № {{ account }}, на счету {{ account.value }} руб.
 				{% endfor %}
 			</p><br>
-				Сумма всех счетов пользователя:
-				{{ test }}
+
+			<p>
+				Расчетное значение счетов пользователя:
+			</p>
+			<p>
+				{% for account, value in test.items %}
+					Счёт № {{ account }}, на счету {{ value }} руб.<br>
+				{% endfor %}
+			</p>
+
 
 	{% endblock %}
 

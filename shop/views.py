@@ -134,10 +134,14 @@ def transfer_calc(request):
 	transfer_user = user
 
 	transfer_accounts_id = request.GET.getlist('ta')	# ta == transfer_account (id) == счет(а) отправителя(id)
+#	print(transfer_accounts_id)
+#	print(type(transfer_accounts_id))
 	transfer_accounts = []
 	for account in transfer_accounts_id:
 		transfer_accounts.append(Account.objects.get(pk=account))
 
+#	transfer_accounts = Account.objects.
+	
 	transfer_sum = int(request.GET.get('ts'))			# ts == tansfer_sum == сумма перевода
 
 	recipient_user_id = request.GET.get('ru')			# recipient_user (id)		==	получатель (id)
@@ -148,11 +152,13 @@ def transfer_calc(request):
 
 
 
-	test = services.sum_accounts(transfer_accounts)
-	
+	new_transfer_accounts = services.sum_accounts(transfer_accounts, transfer_sum)
+	print(new_transfer_accounts)
+
+
 	return render(request, 'transfer_calc.html', {
 		'user' : user,
-		'test' : test,
+		'test' : new_transfer_accounts,
 		'transfer_user' : transfer_user,
 		'transfer_accounts' : transfer_accounts,
 
