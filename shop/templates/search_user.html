@@ -8,7 +8,7 @@
 			Введите имя пользователя:
 		</h4>
 		<form action="{% url 'search_user' %}" method="get">
-			<input type="hidden" name="pk" value="{{ user.pk }}">
+			<input type="hidden" name="tu" value="{{ transfer_user.pk }}">
 			<input type="text"   name="q"  placeholder="Искать пользователя...">
 		</form>
 	</div>
@@ -19,18 +19,18 @@
 		</h4>
 		<p>{{ not_found }}</p>
 		<ul>
-			{% for find_user in list_users %}
-				{% for account in find_user.account_set.all %}
+			{% for find_user, accounts in dict_users.items %}
+				{% for find_account in accounts %}
 					<li>
-						<a href=" /shop/accounts/?tu={{user.pk}}&ru={{find_user.pk}}&ra={{account.pk}} ">
+						<a href=" /shop/accounts/?tu={{ transfer_user.pk }}&ru={{ find_user.pk }}&ra={{ find_account.pk }} ">
 							{{ find_user.name }} {{ find_user.second_name }}
-							счёт № {{ account.number }}
+							счёт № {{ find_account.number }}
 						</a><br>
 					</li>
 				{% endfor %}
 			{% endfor %}
 		</ul>
-		<a href="/shop/search/?pk={{ user.pk }}">
+		<a href="/shop/search/?pk={{ transfer_user.pk }}">
 			Сбросить поиск >>				
 		</a><br>
 	</div>

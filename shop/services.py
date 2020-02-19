@@ -31,8 +31,9 @@ def sum_accounts(transfer_accounts, transfer_sum):
 
 	for account in acc_dict:
 		accounts_dict[account.number] = int(account.value * 100)
-	print(accounts_dict)
-	print('\n\n')
+#	print('\n\n')
+#	print(accounts_dict)
+#	print('\n\n')
 
 
 #	accounts_dict = {                               # задаем словарь счетов и переводим в копейки
@@ -75,6 +76,5 @@ def sum_accounts(transfer_accounts, transfer_sum):
 	for account in accounts_dict:
 	    accounts_dict[account] /= 100
 
-	print(accounts_dict)
 
 	return accounts_dict

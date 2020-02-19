@@ -8,7 +8,7 @@
 		<p><h4>Мои счета:</p></h4>
 		<div class="list_of_accounts">
 			<form action="/shop/accounts/" method="get">
-				{% for x in users_accounts %}
+				{% for x in user_accounts %}
 					<ul>
 						<li>
 							<h5>
@@ -26,7 +26,7 @@
 	<br>
 
 	<div class="find_users">
-		<form action="/shop/search/?pk={{user.pk}}" method="get">
+		<form action="/shop/search/?tu={{user.pk}}" method="get">
 			<h4>Переводы:</h4>
 				<ul>
 					<li>
@@ -35,7 +35,7 @@
 							<input type="button" value="Сделать перевод">	Не работает
 							<input type="submit" value="Сделать перевод другому пользователю">		-->
 							<h2>
-								<a href="/shop/search/?pk={{user.pk}}">Сделать перевод другому пользователю >></a>
+								<a href="/shop/search/?tu={{user.pk}}">Сделать перевод другому пользователю >></a>
 							</h2>
 						</p>
 					</li>

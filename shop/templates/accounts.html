@@ -10,22 +10,22 @@
 
 			<div class="list_of_accounts">
 				<form action="/shop/transfer_sum/" method="get">
-					{% for x in users_accounts %}
+					{% for account in transfer_accounts %}
 						<div>
 							<ul>
 								<li>
 									<h5>
-									<input type="checkbox" name= "ta" value="{{x.pk}}">
-<!--										<a href=" {% url 'account_page' pk=x.pk %} ">	-->
-											Номер счета: {{ x.number }} ; 
-											Сумма на счету =  {{ x.value }} руб.
+									<input type="checkbox" name= "ta" value="{{account.pk}}">
+<!--										<a href=" {% url 'account_page' pk=account.pk %} ">	-->
+											Номер счета: {{ account.number }} ; 
+											Сумма на счету =  {{ account.value }} руб.
 										</a>
 									</h5>
 								</li>
 							</ul>
 						</div>	
 					{% endfor %}
-					<p><input type="hidden" name="tu" value="{{ user.pk }}"></p>
+					<p><input type="hidden" name="tu" value="{{ transfer_user.pk }}"></p>
 					<p><input type="hidden" name="ru" value="{{ recipient_user }}"></p>
 					<p><input type="hidden" name="ra" value="{{ recipient_account }}"></p>
 					<p><input type="submit" value="Выбрать"></p>
@@ -37,12 +37,12 @@
 
 <!--			<div class="list_of_accounts">
 				<form action="/shop/accounts/" method="get">
-					{% for x in users_accounts %}
+					{% for account in users_accounts %}
 						<ul>
 							<li>
 								<h5>
-										Номер счета: {{ x.number }} ; 
-										Сумма на счету =  {{ x.value }} руб.
+										Номер счета: {{ account.number }} ; 
+										Сумма на счету =  {{ account.value }} руб.
 									</a>
 								</h5>
 							</li>
@@ -59,9 +59,11 @@
 				<form action="/shop/accounts/" method="get">
 					<select size="1"  name="accounts">
 					<option disabled>Выберите счета для списания</option><br>
-					{% for x in users_accounts %}
-						<option value="{{ x.pk }}">Счёт № {{ x.number }}, на счету: {{ x.value }} руб. </option>
-							<a href=" {% url 'account_page' pk=x.pk %} ">Номер счета: {{ x.number }} ; Сумма на счету =  {{ x.value }} руб.
+					{% for account in users_accounts %}
+						<option value="{{ account.pk }}">Счёт № {{ account.number }}, на счету: {{ account.value }} руб. </option>
+							<a href=" {% url 'account_page' pk=account.pk %} ">
+							Номер счета: {{ account.number }} ; 
+							Сумма на счету =  {{ account.value }} руб.
 					{% endfor %}
 					</select>
 					<p><input type="submit" value="Выбрать счета"></p>

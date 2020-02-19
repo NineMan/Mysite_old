@@ -8,9 +8,9 @@
 					Введите сумму, которую необходимо перевести:
 				</h4>
 
-				<input type="hidden" name="tu" value="{{ transfer_user }}">
+				<input type="hidden" name="tu" value="{{ transfer_user.id }}">
 				
-				{% for account in transfer_account %}
+				{% for account in transfer_accounts %}
 					<input type="hidden" name="ta" value="{{ account }}">
 				{% endfor %}
 
